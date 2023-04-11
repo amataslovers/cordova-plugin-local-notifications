@@ -229,10 +229,10 @@ public final class Notification {
             PendingIntent pi = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                     pi = PendingIntent.getBroadcast(
-                        context, 0, intent, PendingIntent.FLAG_MUTABLE | FLAG_CANCEL_CURRENT);
+                        context, 0, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
             } else {
                     pi = PendingIntent.getBroadcast(
-                        context, 0, intent, FLAG_CANCEL_CURRENT);
+                        context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             }
 
             try {
@@ -323,7 +323,7 @@ public final class Notification {
             PendingIntent pi = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 pi = PendingIntent.getBroadcast(
-                    context, 0, intent, PendingIntent.FLAG_IMMUTABLE  );
+                    context, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
             } else {
                 pi = PendingIntent.getBroadcast(
                     context, 0, intent, 0);
