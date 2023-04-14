@@ -203,7 +203,12 @@ public final class Builder {
 
         int reqCode = random.nextInt();
         // request code and flags not added for demo purposes
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getActivity(context, reqCode, intent, FLAG_UPDATE_CURRENT);
+        }
 
         builder.setFullScreenIntent(pendingIntent, true);
     }
@@ -401,7 +406,7 @@ public final class Builder {
         PendingIntent deleteIntent;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             deleteIntent = PendingIntent.getBroadcast(
-                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT);
+                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_MUTABLE);
         } else {
             deleteIntent  = PendingIntent.getBroadcast(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -436,7 +441,7 @@ public final class Builder {
         PendingIntent contentIntent ;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             contentIntent = PendingIntent.getService(
-                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT);
+                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_MUTABLE);
         } else {
             contentIntent  = PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
@@ -491,7 +496,7 @@ public final class Builder {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             return PendingIntent.getService(
-                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT);
+                context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_MUTABLE);
         } else {
             return PendingIntent.getService(
                 context, reqCode, intent, FLAG_UPDATE_CURRENT);
